@@ -1,0 +1,151 @@
+---
+title: "github instruction"
+author: "Fan Ouyang"
+date: "8/29/2017"
+output: html_document
+---
+
+## github commands
+This file will show how to link a remote repo to local repo, add and remove files, or create new sub-folder in your local repo, and commit the changes to the remote repo
+
+### Step 0: create a remote repo in your Github account 
+right now it is an empty repo without any files
+
+### Step 1: clone remote repo to local directory
+- $ cd ~/desktop
+- $ git clone https://github.com/fanouyang/sna_exampler.git # here is the remote repo link you can copy from the repo page
+- info showed after the commands  
+Cloning into 'sna_exampler'...  
+remote: Counting objects: 24, done.  
+remote: Compressing objects: 100% (24/24), done.  
+remote: Total 24 (delta 11), reused 5 (delta 0), pack-reused 0  
+Unpacking objects: 100% (24/24), done.
+
+### Step 2: you work locally; add files you want to push into remote repo 
+- $ cd sna_exampler
+- $ git status
+- info showed after the commands  
+On branch master  
+Your branch is up-to-date with 'origin/master'.  
+Changes not staged for commit:  
+  (use "git add <file>..." to update what will be committed)  
+  (use "git checkout -- <file>..." to discard changes in working directory)  
+	modified:   sna_exampler.Rmd  
+	modified:   sna_exampler.html  
+Untracked files:  
+  (use "git add <file>..." to include in what will be committed)  
+  sna_test.csv  
+no changes added to commit (use "git add" and/or "git commit -a")  
+
+### Step 3: as the reminders show above, use the command “git add file_name_here” to update files you want to push into remote
+- $ git add sna_exampler.Rmd
+- $ git add sna_exampler.html
+- $ git add sna_test.csv
+- $ git commit -m "add files" # add comments that will be shown alongside of files in remote repo
+- info showed after the commands  
+[master 08bf409] add files  
+ 3 files changed, 97 insertions(+), 10 deletions(-)  
+ create mode 100644 sna_test.csv  
+
+### Step 4: Now, everything is ready to be officially pushed into the remote repo. Push the changes into remote repo with “git push”
+- $ git push
+- info showed after the commands  
+Counting objects: 5, done.  
+Delta compression using up to 4 threads.  
+Compressing objects: 100% (5/5), done.  
+Writing objects: 100% (5/5), 298.15 KiB | 0 bytes/s, done.  
+Total 5 (delta 3), reused 0 (delta 0)  
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.  
+To https://github.com/fanouyang/sna_exampler.git  
+   0af172d..08bf409  master -> master  
+
+### Step 5: It is useful to always check git status after your change
+- $ git status
+- info showed after the commands  
+On branch master  
+Your branch is up-to-date with 'origin/master'.  
+nothing to commit, working tree clean  
+
+### Step 6: now there is a link between local repo and remote repo as the info showed below
+- $ git remote -v
+- info showed after the commands  
+origin	https://github.com/fanouyang/sna_exampler.git (fetch)  
+origin	https://github.com/fanouyang/sna_exampler.git (push)  
+
+### Step 7: you can make remote repo to reflect changes in local repo, anytime you have changed files in local repo
+- $ git push -u origin master
+- info showed after the commands  
+Branch master set up to track remote branch master from origin.  
+Everything up-to-date  
+- now assume that you made some changes in local repo 
+$ git status
+- info showed after the commands  
+On branch master  
+Your branch is up-to-date with 'origin/master'.  
+Changes not staged for commit:  
+  (use "git add/rm <file>..." to update what will be committed)  
+  (use "git checkout -- <file>..." to discard changes in working directory)  
+	deleted:    one_mode_ad_mat.csv  
+	deleted:    sna_test.csv  
+	deleted:    two_mode_ad_mat.csv  
+Untracked files:  
+  (use "git add <file>..." to include in what will be committed)  
+	data/  
+no changes added to commit (use "git add" and/or "git commit -a")  
+
+### Step 8: as the info showed, some files were removed, and one folder was added, now you need the remote repo to reflect the local changes so you need to manually add/remove files
+- $ git rm one_mode_ad_mat.csv
+- info showed after the commands      
+rm 'one_mode_ad_mat.csv'  
+- $ git rm sna_test.csv
+- info showed after the commands  
+rm 'sna_test.csv'  
+- $ git rm two_mode_ad_mat.csv
+- info showed after the commands  
+rm 'two_mode_ad_mat.csv'  
+- $ git add data/
+ 
+- $ git status
+- info showed after the commands  
+On branch master  
+Your branch is up-to-date with 'origin/master'.  
+Changes to be committed:  
+  (use "git reset HEAD <file>..." to unstage)  
+
+	renamed:    one_mode_ad_mat.csv -> data/one_mode_ad_mat.csv  
+	renamed:    sna_test.csv -> data/sna_test.csv  
+	renamed:    two_mode_ad_mat.csv -> data/two_mode_ad_mat.csv  
+
+- $ git commit -m "move files"
+- info showed after the commands  
+[master 0244185] move files  
+ 3 files changed, 0 insertions(+), 0 deletions(-)  
+ rename one_mode_ad_mat.csv => data/one_mode_ad_mat.csv (100%)  
+ rename sna_test.csv => data/sna_test.csv (100%)  
+ rename two_mode_ad_mat.csv => data/two_mode_ad_mat.csv (100%)  
+
+### Step 9: again, make remote repo to reflect local changes
+- $ git push -u origin master
+- info showed after the commands  
+Counting objects: 3, done.  
+Delta compression using up to 4 threads.  
+Compressing objects: 100% (3/3), done.  
+Writing objects: 100% (3/3), 377 bytes | 0 bytes/s, done.  
+Total 3 (delta 1), reused 0 (delta 0)  
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.  
+To https://github.com/fanouyang/sna_exampler.git  
+   08bf409..0244185  master -> master  
+Branch master set up to track remote branch master from origin.  
+
+- $ git status
+- info showed after the commands  
+On branch master  
+Your branch is up-to-date with 'origin/master'.  
+nothing to commit, working tree clean  
+
+Now every time you make some changes in your local repo, make sure to repeat step 7 to step 9 to make sure your remote repo reflect your local changes.
+
+### notes:
+Many people mention they got problems like “updates rejected when pushing to github” after they make some changes locally. In this case, I usually clone the existing remote repo into local directory again (step 1), and work locally (e.g. add or remove files), then I repeat the steps abovementioned. This usually works. Make sure that before you push, you use commands manually to add/remove files/folders you want to commit.
+
+
